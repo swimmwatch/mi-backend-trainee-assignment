@@ -7,8 +7,7 @@ from loguru import logger
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-from services.db.protocols import SQLAlchemyDatabaseProtocol
-from services.db.types import SessionType
+from utils.sqlalchemy.protocols import SQLAlchemyDatabaseProtocol
 
 Base = declarative_base()
 
