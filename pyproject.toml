@@ -6,8 +6,14 @@ authors = ["Dmitry Vasiliev <contact.vasiliev.dmitry@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+fastapi = "^0.78.0"
+uvicorn = "^0.17.6"
+SQLAlchemy = {extras = ["asyncio"], version = "^1.4.37"}
 
 [tool.poetry.dev-dependencies]
+mypy = "^0.960"
+pytest = "^7.1.2"
+flake8 = "^4.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
