@@ -1,8 +1,9 @@
-FROM python:3.9-alpine
+FROM python:3.9
 
 WORKDIR /app
 
 # Install poetry
+RUN apt install curl
 RUN curl -sSL https://install.python-poetry.org | python -
 ENV PATH /root/.local/bin:$PATH
 
