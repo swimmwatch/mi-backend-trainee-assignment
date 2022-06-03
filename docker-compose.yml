@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  announcement_observer:
+    build:
+      context: '.'
+    command: poetry run uvicorn services.announcement_observer --host 0.0.0.0 --port 8000
+    restart: always
+    ports:
+      - '8000:8000'
+  db:
+    image: postgres:14-alpine
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_DB: "${DB_NAME}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./services/db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
