@@ -3,7 +3,7 @@ Database protocols.
 """
 from typing import Protocol
 
-from services.db.types import AnySessionAbstractContextManager
+from utils.sqlalchemy.types import AnySessionAbstractContextManager
 
 
 class SQLAlchemyDatabaseProtocol(Protocol):
