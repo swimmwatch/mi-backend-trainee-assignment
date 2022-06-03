@@ -3,7 +3,7 @@ Announcement observer service entrypoint.
 """
 from typing import List
 
-from dependency_injector.wiring import Provide
+from dependency_injector.wiring import Provide, inject
 from fastapi import FastAPI, Depends
 
 from services.announcement_observer.container import AnnouncementObserverContainer
@@ -26,11 +26,12 @@ async def init_db():
 
 
 @app.get('/cities', response_model=List[City])
+@inject
 async def get_cities(
     cities_rep: CityRepository = Depends(
         Provide[AnnouncementObserverContainer.cities_repository]
     )
-):
+) -> List[City]:
     cities_records = await cities_rep.get_all()
     return [
         City(
