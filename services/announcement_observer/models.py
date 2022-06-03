@@ -10,4 +10,4 @@ class City(Base):
     __tablename__ = 'cities'
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, uniq=True, index=True, nullable=False)
+    name = Column(String, unique=True, index=True, nullable=False)
