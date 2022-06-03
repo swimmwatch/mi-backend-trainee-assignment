@@ -10,6 +10,7 @@ fastapi = "^0.78.0"
 uvicorn = "^0.17.6"
 SQLAlchemy = {extras = ["asyncio"], version = "^1.4.37"}
 dependency-injector = "^4.39.1"
+loguru = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.960"
