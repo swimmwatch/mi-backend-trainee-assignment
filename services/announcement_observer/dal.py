@@ -1,16 +1,15 @@
 """
 Announcement observer Data Access Layer.
 """
-from typing import AsyncContextManager, List
+from typing import List
 
-from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from services.announcement_observer.models import City
 from utils.sqlalchemy.dal import SQLAlchemyRepository
 
 
-class CityRepository(SQLAlchemyRepository[AsyncContextManager[AsyncSession]]):
+class CityRepository(SQLAlchemyRepository):
     """
     City repository that uses SQLAlchemy.
     """

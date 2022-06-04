@@ -2,16 +2,16 @@
 Data access layer.
 """
 from abc import ABC
-from typing import Generic, Callable
+from typing import Callable, AsyncContextManager
 
 from utils.common.patterns import Repository
-from utils.common.types import ContextManagerType
 
 
-class SQLAlchemyRepository(Repository, ABC, Generic[ContextManagerType]):
+class SQLAlchemyRepository(Repository, ABC):
     """
     SQLAlchemy repository.
     """
 
-    def __init__(self, session_factory: Callable[..., ContextManagerType]):
-        self.session_factory: Callable[..., ContextManagerType] = session_factory
+    def __init__(self, session_factory: Callable[..., AsyncContextManager]):
+        self.session_factory: Callable[..., AsyncContextManager] = \
+            session_factory

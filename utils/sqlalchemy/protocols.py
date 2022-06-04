@@ -1,16 +1,16 @@
 """
 Database protocols.
 """
-from typing import Protocol
+from typing import Protocol, AsyncContextManager
 
-from utils.sqlalchemy.types import AnySessionAbstractContextManager
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 class SQLAlchemyDatabaseProtocol(Protocol):
     """
     SQLAlchemy database protocol.
     """
-    def session(self) -> AnySessionAbstractContextManager:
+    def session(self) -> AsyncContextManager[AsyncSession]:
         """
         Implements method that returns SQLAlchemy session context manager.
         """

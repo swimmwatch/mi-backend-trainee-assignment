@@ -6,7 +6,8 @@ from typing import List
 from dependency_injector.wiring import Provide, inject
 from fastapi import FastAPI, Depends
 
-from services.announcement_observer.container import AnnouncementObserverContainer
+from services.announcement_observer.container import \
+    AnnouncementObserverContainer
 from services.announcement_observer.dal import CityRepository
 from services.announcement_observer.schemas.city import City
 from services.announcement_observer.utils import async_init_db
