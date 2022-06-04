@@ -17,6 +17,7 @@ asyncpg = "^0.25.0"
 mypy = "^0.960"
 pytest = "^7.1.2"
 flake8 = "^4.0.1"
+pytest-cov = "^3.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
