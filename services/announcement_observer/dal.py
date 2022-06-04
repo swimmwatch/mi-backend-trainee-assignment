@@ -19,4 +19,4 @@ class CityRepository(SQLAlchemyRepository[AsyncContextManager[AsyncSession]]):
             async with session.begin():
                 stmt = select(City)
                 res = await session.execute(stmt)
-                return res.scalars()
+                return res.scalars().all()
