@@ -2,7 +2,7 @@ name: "Run Python linters and tests"
 on:
   pull_request:
     branches:
-      - main
+      - master
       - dev
 
 jobs:
