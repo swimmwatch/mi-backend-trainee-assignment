@@ -1,5 +1,18 @@
 version: '3.9'
 services:
+  worker:
+    build:
+      context: '.'
+    command: poetry run celery --app services.worker.app worker --loglevel INFO
+    restart: always
+    depends_on:
+      - redis
+      - rabbitmq
+    environment:
+      CELERY_BROKER_URL: "amqp://admin:mypass@rabbitmq"
+      CELERY_RESULT_BACKEND: "redis://redis"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
   announcement_observer:
     build:
       context: '.'
@@ -11,12 +24,17 @@ services:
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_HOST: db
       DB_PORT: 5433
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CELERY_BROKER_URL: "amqp://admin:mypass@rabbitmq"
+      CELERY_RESULT_BACKEND: "redis://redis"
     ports:
       - '8000:8000'
     volumes:
       - '.:/app'
     depends_on:
       - db
+      - worker
   db:
     image: postgres:14-alpine
     restart: always
