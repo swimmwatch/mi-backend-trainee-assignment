@@ -11,6 +11,7 @@ from services.announcement_observer.container import \
 from services.announcement_observer.dal import CityRepository
 from services.announcement_observer.schemas.city import City
 from services.announcement_observer.utils import async_init_db
+from services.worker.app import count
 
 app = FastAPI()
 container = AnnouncementObserverContainer()
@@ -34,6 +35,7 @@ async def get_cities(
     )
 ) -> List[City]:
     cities_records = await cities_rep.get_all()
+    count.delay()
     return [
         City(
             id=city_record.id,
