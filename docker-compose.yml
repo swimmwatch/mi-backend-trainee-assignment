@@ -9,7 +9,7 @@ services:
       - redis
       - rabbitmq
     environment:
-      CELERY_BROKER_URL: "amqp://admin:mypass@rabbitmq"
+      CELERY_BROKER_URL: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq"
       CELERY_RESULT_BACKEND: "redis://redis"
       REDIS_HOST: redis
       REDIS_PORT: 6379
@@ -26,7 +26,7 @@ services:
       DB_PORT: 5433
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      CELERY_BROKER_URL: "amqp://admin:mypass@rabbitmq"
+      CELERY_BROKER_URL: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq"
       CELERY_RESULT_BACKEND: "redis://redis"
     ports:
       - '8000:8000'
@@ -58,8 +58,8 @@ services:
     ports:
       - "5672:5672"
     environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: mypass
+      RABBITMQ_DEFAULT_USER: "${RABBITMQ_USERNAME}"
+      RABBITMQ_DEFAULT_PASS: "${RABBITMQ_PASSWORD}"
 
 volumes:
   db:
