@@ -24,7 +24,7 @@ flake8 = "^4.0.1"
 pytest-cov = "^3.0.0"
 SQLAlchemy = {extras = ["mypy"], version = "^1.4.37"}
 types-redis = "^4.2.6"
-celery-types = "^0.13.0"
+celery-types = "^0.13.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
