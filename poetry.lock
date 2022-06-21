@@ -709,7 +709,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "types-redis"
-version = "4.2.8"
+version = "4.3.0"
 description = "Typing stubs for redis"
 category = "dev"
 optional = false
@@ -777,7 +777,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "618d3c00cab2f4b70331acf0b2f9079f1a5445de939f84ec6e07fcf6479dd4fc"
+content-hash = "a5b90b2c09b69ab7f4f6de9bd1bdc77b4bf701de2ef2d71bdbdd4a40f46537f4"
 
 [metadata.files]
 amqp = [
@@ -1231,8 +1231,8 @@ tomli = [
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 types-redis = [
-    {file = "types-redis-4.2.8.tar.gz", hash = "sha256:2fe34d40bc7851db8752cda6210c4a8becd1bafd9adb5df189e11583770bf9a0"},
-    {file = "types_redis-4.2.8-py3-none-any.whl", hash = "sha256:ab0136dfd489dbd7e041dc77089dbc2239305f8e421bf92506db26b57ffaf1d3"},
+    {file = "types-redis-4.3.0.tar.gz", hash = "sha256:f4bd9be6ab741f1da9105cf0a4e462886dc1d5dae46d6d3f6b7fd7e81ffeba28"},
+    {file = "types_redis-4.3.0-py3-none-any.whl", hash = "sha256:3cc4b78b6ae08bd5b84ecfa6b847517e107789091f2ce02482717c10c65bbf51"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
