@@ -6,6 +6,8 @@ on:
       - dev
     paths:
       - '**/*.py'
+      - 'poetry.lock'
+      - 'pyproject.toml'
 
 jobs:
   lint:
