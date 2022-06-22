@@ -1,3 +1,0 @@
-"""
-Avito parser utils.
-"""
