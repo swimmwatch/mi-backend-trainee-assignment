@@ -1,7 +1,7 @@
 """
 Announcement observer utils.
 """
-from services.announcement_observer.models import City
+from services.amount_ads_observer.models import City
 from services.db import AsyncDatabase
 
 

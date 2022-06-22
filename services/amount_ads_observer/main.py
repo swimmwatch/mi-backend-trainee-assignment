@@ -6,15 +6,15 @@ from typing import List
 from dependency_injector.wiring import Provide, inject
 from fastapi import FastAPI, Depends
 
-from services.announcement_observer.container import \
-    AnnouncementObserverContainer
-from services.announcement_observer.dal import CityRepository
-from services.announcement_observer.schemas.city import City
-from services.announcement_observer.utils import async_init_db
+from services.amount_ads_observer.container import \
+    AmountAdsObserverContainer
+from services.amount_ads_observer.dal import CityRepository
+from services.amount_ads_observer.schemas.city import City
+from services.amount_ads_observer.utils import async_init_db
 from services.worker.app import count
 
 app = FastAPI()
-container = AnnouncementObserverContainer()
+container = AmountAdsObserverContainer()
 
 
 @app.on_event('startup')
@@ -31,7 +31,7 @@ async def init_db():
 @inject
 async def get_cities(
     cities_rep: CityRepository = Depends(
-        Provide[AnnouncementObserverContainer.cities_repository]
+        Provide[AmountAdsObserverContainer.cities_repository]
     )
 ) -> List[City]:
     cities_records = await cities_rep.get_all()

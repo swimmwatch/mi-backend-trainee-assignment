@@ -16,6 +16,7 @@ celery = "^5.2.7"
 redis = "^4.3.3"
 httpx = "^0.23.0"
 beautifulsoup4 = "^4.11.1"
+fake-headers = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.961"

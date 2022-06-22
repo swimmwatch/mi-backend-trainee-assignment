@@ -5,7 +5,7 @@ from typing import List
 
 from sqlalchemy.future import select
 
-from services.announcement_observer.models import City
+from services.amount_ads_observer.models import City
 from utils.sqlalchemy.dal import SQLAlchemyRepository
 
 
