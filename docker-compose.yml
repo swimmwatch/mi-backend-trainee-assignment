@@ -3,7 +3,7 @@ services:
   private_avito_api_executor:
     build:
       context: '.'
-    command: poetry run python services.private_avito_api_executor.main
+    command: poetry run python -m services.private_avito_api_executor.main
     restart: always
     environment:
       GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
