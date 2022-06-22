@@ -9,7 +9,7 @@ from playwright.async_api import Playwright, async_playwright
 
 from services.private_avito_api_executor import private_avito_api_executor_pb2_grpc,\
     AsyncPrivateAvitoApiExecutorService
-from services.private_avito_api_executor.config import PrivateAvitoApiExecutorSettings
+from services.private_avito_api_executor.config import private_avito_api_executor_settings
 
 
 async def run_grpc_server(playwright: Playwright):
@@ -23,9 +23,9 @@ async def run_grpc_server(playwright: Playwright):
         AsyncPrivateAvitoApiExecutorService(playwright),
         server
     )
-    server.add_insecure_port(PrivateAvitoApiExecutorSettings.grpc_server_addr)
+    server.add_insecure_port(private_avito_api_executor_settings.grpc_server_addr)
 
-    logger.info(f'starting gRPC server on {PrivateAvitoApiExecutorSettings.grpc_server_addr}')
+    logger.info(f'starting gRPC server on {private_avito_api_executor_settings.grpc_server_addr}')
     await server.start()
     await server.wait_for_termination()
 
