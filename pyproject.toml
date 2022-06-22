@@ -17,6 +17,8 @@ redis = "^4.3.3"
 httpx = "^0.23.0"
 beautifulsoup4 = "^4.11.1"
 fake-headers = "^1.0.2"
+grpcio = "^1.46.3"
+grpcio-tools = "^1.46.3"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.961"
