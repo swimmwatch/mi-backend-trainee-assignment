@@ -13,4 +13,12 @@ COPY pyproject.toml .
 # Install Python dependecies
 RUN poetry install --no-dev
 
+# Build gRPC services
+COPY protobufs /app/protobufs
+RUN poetry run python -m grpc_tools.protoc \
+    -I /app/protobufs \
+    --python_out=. \
+     --grpc_python_out=. \
+    /app/protobufs/services/private_avito_api_executor/private_avito_api_executor.proto
+
 COPY . .
