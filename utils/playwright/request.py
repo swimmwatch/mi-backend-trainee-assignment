@@ -12,6 +12,7 @@ T = TypeVar('T', BaseModel, BaseSettings)
 async def make_async_get_request(page: Page, url: str, schema_type: Type[T]) -> T:
     """
     Make GET request by Playwright.
+
     :param schema_type: Pydantic schema
     :param page: Playwright page
     :param url: URL
