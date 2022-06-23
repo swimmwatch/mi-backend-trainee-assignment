@@ -1,4 +1,9 @@
-from fastapi import APIRouter, Query
+from dependency_injector.wiring import Provide, inject
+from fastapi import APIRouter, Depends
+
+from services.amount_ads_observer.container import AmountAdsObserverContainer
+from services.amount_ads_observer.dal import AdsObserversRepository
+from services.amount_ads_observer.schemas.ads_observer import AdsObserverCreate, AdsObserver
 
 router = APIRouter(prefix='/ads/amount/observer')
 
@@ -8,9 +13,12 @@ async def get_stat():
     pass
 
 
-@router.post('/add')
+@router.post('/add', response_model=AdsObserver)
+@inject
 async def add_observation(
-    query: str = Query(),
-    location_id: int = Query()
+    ads_observer_data: AdsObserverCreate,
+    ads_observers_repo: AdsObserversRepository = Depends(
+        Provide[AmountAdsObserverContainer.ads_observers_repository]
+    )
 ):
-    pass
+    return await ads_observers_repo.add_one(ads_observer_data)
