@@ -1,21 +1,19 @@
 """
 Announcement observer Data Access Layer.
 """
-from typing import List
-
-from sqlalchemy.future import select
-
-from services.amount_ads_observer.models import City
+from services.amount_ads_observer.models import AdsObserver
+from services.amount_ads_observer.schemas.ads_observer import AdsObserverCreate
 from utils.sqlalchemy.dal import SQLAlchemyRepository
 
 
-class CityRepository(SQLAlchemyRepository):
+class AdsObserversRepository(SQLAlchemyRepository):
     """
-    City repository that uses SQLAlchemy.
+    Advert observers repository that uses SQLAlchemy.
     """
-    async def get_all(self) -> List[City]:
+    async def add_one(self, ads_observer_data: AdsObserverCreate) -> AdsObserver:
         async with self.session_factory() as session:
             async with session.begin():
-                stmt = select(City)
-                res = await session.execute(stmt)
-                return res.scalars().all()
+                ad_observer = AdsObserver(**ads_observer_data.dict())
+                session.add(ad_observer)
+                await session.commit()
+                return ad_observer
