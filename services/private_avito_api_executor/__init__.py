@@ -2,7 +2,7 @@
 Private Avito API executor service.
 """
 import urllib
-from typing import Optional, AsyncContextManager
+from typing import Optional
 
 from playwright.async_api import Playwright, Browser, Page
 
@@ -14,7 +14,7 @@ from utils.playwright.request import make_async_get_request
 
 
 class AsyncPrivateAvitoApiExecutorService(
-    PrivateAvitoApiExecutorServicer, AsyncContextManager
+    PrivateAvitoApiExecutorServicer
 ):
     def __init__(self, playwright: Playwright):
         super().__init__()
@@ -37,11 +37,10 @@ class AsyncPrivateAvitoApiExecutorService(
         response = await make_async_get_request(self.page, url, AvitoItemsResponse)
         return GetAmountAdsResponse(amount=response.result.count)
 
-    async def __aenter__(self):
+    async def run_browser(self):
         self.browser = await self.playwright.chromium.launch()
         self.page = await self.browser.new_page()
         return self
 
-    async def __aexit__(self, exc_type, exc, tb) -> Optional[bool]:
+    async def finalize(self):
         await self.browser.close()
-        return True
