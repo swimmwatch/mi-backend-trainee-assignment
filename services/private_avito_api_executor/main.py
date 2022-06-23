@@ -19,8 +19,12 @@ async def run_grpc_server(playwright: Playwright):
     :param playwright: Playwright instance
     """
     server = aio.server()
+
+    service = AsyncPrivateAvitoApiExecutorService(playwright)
+    await service.run_browser()
+
     private_avito_api_executor_pb2_grpc.add_PrivateAvitoApiExecutorServicer_to_server(
-        AsyncPrivateAvitoApiExecutorService(playwright),
+        service,
         server
     )
     server.add_insecure_port(private_avito_api_executor_settings.grpc_server_addr)
@@ -28,6 +32,8 @@ async def run_grpc_server(playwright: Playwright):
     logger.info(f'starting gRPC server on {private_avito_api_executor_settings.grpc_server_addr}')
     await server.start()
     await server.wait_for_termination()
+
+    await service.finalize()
 
 
 async def main():
