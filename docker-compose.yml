@@ -19,11 +19,13 @@ services:
     depends_on:
       - redis
       - rabbitmq
+      - private_avito_api_executor
     environment:
       CELERY_BROKER_URL: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq"
       CELERY_RESULT_BACKEND: "redis://redis"
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      PRIVATE_AVITO_API_EXECUTOR_GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
   amount_ads_observer:
     build:
       context: '.'
@@ -39,7 +41,6 @@ services:
       REDIS_PORT: 6379
       CELERY_BROKER_URL: "amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@rabbitmq"
       CELERY_RESULT_BACKEND: "redis://redis"
-      PRIVATE_AVITO_API_EXECUTOR_GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
     ports:
       - '8000:8000'
     volumes:
@@ -47,7 +48,6 @@ services:
     depends_on:
       - db
       - worker
-      - private_avito_api_executor
   db:
     image: postgres:14-alpine
     restart: always
