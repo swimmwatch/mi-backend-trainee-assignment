@@ -3,8 +3,11 @@ services:
   private_avito_api_executor:
     build:
       context: '.'
+      dockerfile: services/private_avito_api_executor/Dockerfile
     command: poetry run python -m services.private_avito_api_executor.main
     restart: always
+    ports:
+      - "50051"
     environment:
       GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
       AVITO_MAGIC_KEY: af0deccbgcgidddjgnvljitntccdduijhdinfgjgfjir
