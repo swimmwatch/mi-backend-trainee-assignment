@@ -21,7 +21,4 @@ RUN poetry run python -m grpc_tools.protoc \
      --grpc_python_out=. \
     /app/protobufs/services/private_avito_api_executor/private_avito_api_executor.proto
 
-# Install Playwright
-RUN poetry run playwright install
-
 COPY . .
