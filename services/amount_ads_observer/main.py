@@ -10,13 +10,15 @@ from services.amount_ads_observer.utils import async_init_db
 
 app = FastAPI()
 app.include_router(api_router)
-
 container = AmountAdsObserverContainer()
 
 
 @app.on_event('startup')
 async def wire_container():
-    container.wire(modules=[__name__])
+    container.wire(
+        modules=[__name__],
+        packages=['.routers']
+    )
 
 
 @app.on_event('startup')
