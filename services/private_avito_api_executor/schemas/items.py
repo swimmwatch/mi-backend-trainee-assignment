@@ -18,16 +18,8 @@ class AvitoItemsResponse(BaseAvitoResponse):
     result: AvitoItemsInfo
 
 
-class AvitoItemsCountState(Enum):
-    TRUE = 1
-    FALSE = 0
-
-
 class AvitoItemsRequest(BaseModel):
     key: str
     location_id: int = Field(alias='locationId')
     query: str
-    count_only: AvitoItemsCountState = Field(
-        alias='countOnly',
-        default=AvitoItemsCountState.TRUE
-    )
+    count_only: int = 1
