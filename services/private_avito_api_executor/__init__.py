@@ -4,12 +4,14 @@ Private Avito API executor service.
 import urllib
 from typing import Optional
 
+from loguru import logger
 from playwright.async_api import Playwright, Browser, Page
 
+from services.private_avito_api_executor.config import private_avito_api_executor_settings
 from services.private_avito_api_executor.private_avito_api_executor_pb2 import GetAmountAdsResponse,\
     GetAmountAdsRequest
 from services.private_avito_api_executor.private_avito_api_executor_pb2_grpc import PrivateAvitoApiExecutorServicer
-from services.private_avito_api_executor.schemas.items import AvitoItemsResponse
+from services.private_avito_api_executor.schemas.items import AvitoItemsResponse, AvitoItemsRequest
 from utils.playwright.request import make_async_get_request
 
 
@@ -26,15 +28,16 @@ class AsyncPrivateAvitoApiExecutorService(
     async def get_amount_ads(
         self, request: GetAmountAdsRequest, context
     ) -> GetAmountAdsResponse:
-        params = {
-            'key': 'af0deccbgcgidddjgnvljitntccdduijhdinfgjgfjir',
-            'locationId': str(request.location_id),
-            'query': request.query,
-            'countOnly': '1',
-        }
+        req = AvitoItemsRequest(
+            key=private_avito_api_executor_settings.avito_magic_key,
+            locationId=request.location_id,
+            query=request.query
+        )
         url = 'https://m.avito.ru/api/11/items?'
-        url += urllib.parse.urlencode(params)
+        url += urllib.parse.urlencode(req.dict(by_alias=True))
+        logger.info(url)
         response = await make_async_get_request(self.page, url, AvitoItemsResponse)
+        logger.info(response)
         return GetAmountAdsResponse(amount=response.result.count)
 
     async def run_browser(self):

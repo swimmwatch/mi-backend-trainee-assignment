@@ -1,8 +1,6 @@
 """
 Avito items schemas
 """
-from enum import Enum
-
 from pydantic import BaseModel, Field
 
 from services.private_avito_api_executor.schemas.base import BaseAvitoResponse
