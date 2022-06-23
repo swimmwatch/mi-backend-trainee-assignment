@@ -1,7 +1,9 @@
 from celery import Celery
 from dependency_injector.wiring import inject, Provide
-from redis import Redis
+from loguru import logger
 
+from services.private_avito_api_executor import GetAmountAdsRequest
+from services.private_avito_api_executor.grpc_client import PrivateAvitoApiExecutorGrpcClient
 from services.worker.config import CELERY_BROKER_URL, CELERY_RESULT_BACKEND
 from services.worker.container import WorkerContainer
 
@@ -20,5 +22,15 @@ def init_di_container(sender, **kwargs):
 
 @celery.task
 @inject
-def count(redis_client: Redis = Provide[WorkerContainer.redis_client]):
-    redis_client.incr('counter', 1)
+def save_curr_ads_amount(
+    location_id: int,
+    query: str,
+    private_avito_api_executor_client: PrivateAvitoApiExecutorGrpcClient =
+    Provide[WorkerContainer.private_avito_api_executor_client]
+):
+    req = GetAmountAdsRequest(
+        location_id=location_id,
+        query=query
+    )
+    res = private_avito_api_executor_client.stub.get_amount_ads(req)
+    logger.info(res.amount)
