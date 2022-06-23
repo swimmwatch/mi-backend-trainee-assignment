@@ -14,7 +14,7 @@ class AmountAdsObserverContainer(DeclarativeContainer):
         AsyncDatabase,
         db_url=DB_URL
     )
-    cities_repository = providers.Factory(
+    ad_observers_repository = providers.Factory(
         AdObserversRepository,
         session_factory=db.provided.session
     )
