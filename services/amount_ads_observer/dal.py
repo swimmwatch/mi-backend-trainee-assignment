@@ -1,7 +1,7 @@
 """
 Announcement observer Data Access Layer.
 """
-from services.amount_ads_observer.models import AdObserver
+from services.amount_ads_observer.models import AdsObserver
 from utils.sqlalchemy.dal import SQLAlchemyRepository
 
 
@@ -9,10 +9,10 @@ class AdObserversRepository(SQLAlchemyRepository):
     """
     Advert observers repository that uses SQLAlchemy.
     """
-    async def add_one(self, location_id: int, query: str) -> AdObserver:
+    async def add_one(self, location_id: int, query: str) -> AdsObserver:
         async with self.session_factory() as session:
             async with session.begin():
-                ad_observer = AdObserver(
+                ad_observer = AdsObserver(
                     location_id=location_id,
                     query=query
                 )
