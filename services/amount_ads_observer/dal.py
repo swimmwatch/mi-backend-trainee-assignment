@@ -9,9 +9,9 @@ from services.amount_ads_observer.models import City
 from utils.sqlalchemy.dal import SQLAlchemyRepository
 
 
-class CityRepository(SQLAlchemyRepository):
+class AdObserversRepository(SQLAlchemyRepository):
     """
-    City repository that uses SQLAlchemy.
+    Advert observers repository that uses SQLAlchemy.
     """
     async def get_all(self) -> List[City]:
         async with self.session_factory() as session:
