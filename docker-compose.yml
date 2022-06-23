@@ -11,6 +11,8 @@ services:
     environment:
       GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
       AVITO_MAGIC_KEY: af0deccbgcgidddjgnvljitntccdduijhdinfgjgfjir
+    volumes:
+      - '.:/app'
   worker:
     build:
       context: '.'
@@ -26,6 +28,8 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       PRIVATE_AVITO_API_EXECUTOR_GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
+    volumes:
+      - '.:/app'
   amount_ads_observer:
     build:
       context: '.'
