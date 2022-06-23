@@ -3,7 +3,7 @@ Avito items schemas
 """
 from pydantic import BaseModel, Field
 
-from services.private_avito_api_executor.schemas.base import AvitoBaseResponse
+from services.private_avito_api_executor.schemas.base import BaseAvitoResponse
 
 
 class AvitoItemsInfo(BaseModel):
@@ -12,5 +12,5 @@ class AvitoItemsInfo(BaseModel):
     main_count: int = Field(alias='mainCount')
 
 
-class AvitoItemsResponse(AvitoBaseResponse):
+class AvitoItemsResponse(BaseAvitoResponse):
     result: AvitoItemsInfo

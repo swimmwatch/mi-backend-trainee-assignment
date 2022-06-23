@@ -11,5 +11,5 @@ class AvitoResponseStatus(Enum):
     INCORRECT_DATA = 'incorrect-data'
 
 
-class AvitoBaseResponse(BaseModel):
+class BaseAvitoResponse(BaseModel):
     status: AvitoResponseStatus
