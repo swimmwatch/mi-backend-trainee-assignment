@@ -4,13 +4,13 @@ from loguru import logger
 
 from services.private_avito_api_executor import GetAmountAdsRequest
 from services.private_avito_api_executor.grpc_client import PrivateAvitoApiExecutorGrpcClient
-from services.worker.config import CELERY_BROKER_URL, CELERY_RESULT_BACKEND
+from services.worker.config import worker_settings
 from services.worker.container import WorkerContainer
 
 celery = Celery(
     'tasks',
-    broker=CELERY_BROKER_URL,
-    backend=CELERY_RESULT_BACKEND
+    broker=worker_settings.celery_broker_url,
+    backend=worker_settings.celery_result_backend
 )
 
 
