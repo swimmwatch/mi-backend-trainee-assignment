@@ -27,4 +27,7 @@ class AvitoItemsRequest(BaseModel):
     key: str
     location_id: int = Field(alias='locationId')
     query: str
-    count_only: AvitoItemsCountState = AvitoItemsCountState.TRUE
+    count_only: AvitoItemsCountState = Field(
+        alias='countOnly',
+        default=AvitoItemsCountState.TRUE
+    )
