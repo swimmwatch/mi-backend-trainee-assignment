@@ -30,4 +30,10 @@ async def add_observation(
         Provide[AmountAdsObserverContainer.ads_observers_repository]
     )
 ):
-    return await ads_observers_repo.add_one(ads_observer_data)
+    ads_observer = await ads_observers_repo.add_one(ads_observer_data)
+    save_curr_ads_amount.delay(
+        ads_observer_id=ads_observer.id,
+        location_id=ads_observer.location_id,
+        query=ads_observer.query
+    )
+    return ads_observer
