@@ -37,9 +37,9 @@ def save_curr_ads_amount(
     with db.session() as session:
         exists = session.query(AdsObserver) \
                     .filter_by(id=ads_observer_id) \
-                    .exists()
-    if not exists:
-        return
+                    .first()
+        if not exists:
+            return
 
     req = GetAmountAdsRequest(
         location_id=location_id,
