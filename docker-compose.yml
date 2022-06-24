@@ -28,6 +28,11 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       PRIVATE_AVITO_API_EXECUTOR_GRPC_SERVER_ADDR: "private_avito_api_executor:50051"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_HOST: db
+      DB_PORT: 5433
     volumes:
       - '.:/app'
   amount_ads_observer:
