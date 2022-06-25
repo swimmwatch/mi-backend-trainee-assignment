@@ -1,8 +1,10 @@
 """
 Announcement observer Data Access Layer.
 """
+from http import HTTPStatus
 from typing import List
 
+from fastapi import HTTPException
 from sqlalchemy import select
 
 from services.amount_ads_observer.models import AdsObserver, AdsObserverStat
@@ -27,17 +29,25 @@ class AdsObserversStatRepository(SQLAlchemyRepository):
     """
     Advert observers statistic repository that uses SQLAlchemy.
     """
-    async def select_interval(self, from_: int, to: int) -> List[AdsObserverStat]:
+    async def select_interval(self, ads_observer_id: int, from_: int, to: int) -> List[AdsObserverStat]:
         """
         Returns Advert observers statistic records from timestamp interval.
 
+        :param ads_observer_id: Adverts observer ID
         :param from_: Interval begin
         :param to: Interval end
         :return: Advert observers statistic records
         """
+        if from_ > to:
+            raise HTTPException(
+                status_code=HTTPStatus.BAD_REQUEST,
+                detail='"from" must be less "to"'
+            )
+
         async with self.session_factory() as session:
-            async with session.begin():
-                stmt = select(AdsObserverStat)\
-                        .where(from_ <= AdsObserverStat.timestamp <= to)
-                res = await session.execute(stmt)
-                return res.scalars()
+            stmt = select(AdsObserverStat)\
+                    .filter_by(ads_observer_id=ads_observer_id)\
+                    .where(AdsObserverStat.timestamp >= from_)\
+                    .where(AdsObserverStat.timestamp <= to)
+            res = await session.execute(stmt)
+            return res.scalars().all()
