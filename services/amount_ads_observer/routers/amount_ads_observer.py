@@ -16,13 +16,14 @@ router = APIRouter(prefix='/ads/amount/observer')
 @router.get('/stat', response_model=List[AdsObserverStat])
 @inject
 async def get_stat(
+        ads_observer_id: int = Query(),
         from_: int = Query(),
         to: int = Query(),
         ads_observers_stats_repository: AdsObserversStatRepository = Depends(
             Provide[AmountAdsObserverContainer.ads_observers_stats_repository]
         )
 ):
-    return ads_observers_stats_repository.select_interval(from_, to)
+    return ads_observers_stats_repository.select_interval(ads_observer_id, from_, to)
 
 
 @router.post('/add', response_model=AdsObserver)
