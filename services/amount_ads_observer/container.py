@@ -4,7 +4,7 @@ Announcement observer DI container.
 from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.wiring import providers
 
-from services.amount_ads_observer.dal import AdsObserversRepository
+from services.amount_ads_observer.dal import AdsObserversRepository, AdsObserversStatRepository
 from services.db import AsyncDatabase
 from services.db.config import async_database_settings
 
@@ -16,5 +16,9 @@ class AmountAdsObserverContainer(DeclarativeContainer):
     )
     ads_observers_repository = providers.Factory(
         AdsObserversRepository,
+        session_factory=db.provided.session
+    )
+    ads_observers_stats_repository = providers.Factory(
+        AdsObserversStatRepository,
         session_factory=db.provided.session
     )
