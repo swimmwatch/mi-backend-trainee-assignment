@@ -6,7 +6,7 @@ from dependency_injector.wiring import inject, Provide
 
 from services.amount_ads_observer.dal import AdsObserversRepository, AdsObserversStatRepository
 from services.amount_ads_observer.schemas.ads_observer_stat import AdsObserverStatCreate
-from services.private_avito_api_executor import GetAmountAdsRequest
+from services.private_avito_api_executor.private_avito_api_executor_pb2 import GetAmountAdsRequest
 from services.private_avito_api_executor.grpc.client import PrivateAvitoApiExecutorGrpcClient
 from services.worker.config import worker_settings
 from services.worker.container import WorkerContainer

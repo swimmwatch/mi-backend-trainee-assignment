@@ -7,8 +7,8 @@ from grpc import aio
 from loguru import logger
 from playwright.async_api import Playwright, async_playwright
 
-from services.private_avito_api_executor import private_avito_api_executor_pb2_grpc,\
-    AsyncPrivateAvitoApiExecutorService
+from services.private_avito_api_executor import private_avito_api_executor_pb2_grpc
+from services.private_avito_api_executor.grpc.server import AsyncPrivateAvitoApiExecutorService
 from services.private_avito_api_executor.config import private_avito_api_executor_settings
 
 

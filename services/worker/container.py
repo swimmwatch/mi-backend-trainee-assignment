@@ -8,7 +8,7 @@ from redis.client import Redis
 from services.amount_ads_observer.dal import AdsObserversRepository, AdsObserversStatRepository
 from services.db import AsyncDatabase
 from services.db.config import async_database_settings
-from services.private_avito_api_executor.grpc_client import PrivateAvitoApiExecutorGrpcClient
+from services.private_avito_api_executor.grpc.client import PrivateAvitoApiExecutorGrpcClient
 from services.redis.config import REDIS_HOST, REDIS_PORT
 from services.worker.config import worker_settings
 
