@@ -37,4 +37,5 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.mypy]
+ignore_missing_imports = "True"
 plugins = "sqlalchemy.ext.mypy.plugin"
