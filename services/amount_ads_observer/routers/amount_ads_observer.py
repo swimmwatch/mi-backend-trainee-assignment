@@ -23,7 +23,7 @@ async def get_stat(
             Provide[AmountAdsObserverContainer.ads_observers_stats_repository]
         )
 ):
-    return ads_observers_stats_repository.select_interval(ads_observer_id, from_, to)
+    return await ads_observers_stats_repository.select_interval(ads_observer_id, from_, to)
 
 
 @router.post('/add', response_model=AdsObserver)
