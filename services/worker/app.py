@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
 
+from asgiref.sync import async_to_sync
 from celery import Celery
 from dependency_injector.wiring import inject, Provide
 
-from services.amount_ads_observer.models import AdsObserver, AdsObserverStat
-from services.db import Database
+from services.amount_ads_observer.dal import AdsObserversRepository, AdsObserversStatRepository
+from services.amount_ads_observer.schemas.ads_observer_stat import AdsObserverStatCreate
 from services.private_avito_api_executor import GetAmountAdsRequest
 from services.private_avito_api_executor.grpc_client import PrivateAvitoApiExecutorGrpcClient
 from services.worker.config import worker_settings
@@ -30,33 +31,31 @@ def save_curr_ads_amount(
         ads_observer_id: int,
         location_id: int,
         query: str,
-        db: Database = Provide[WorkerContainer.db],
+        ads_observers_repository: AdsObserversRepository = Provide[WorkerContainer.ads_observers_repository],
+        ads_observers_stats_repository: AdsObserversStatRepository =
+        Provide[WorkerContainer.ads_observers_stats_repository],
         private_avito_api_executor_client: PrivateAvitoApiExecutorGrpcClient =
         Provide[WorkerContainer.private_avito_api_executor_client]
 ):
-    with db.session() as session:
-        exists = session.query(AdsObserver) \
-                    .filter_by(id=ads_observer_id) \
-                    .first()
-        if not exists:
-            return
+    exists = async_to_sync(ads_observers_repository.get_by_id)(ads_observer_id)
+    if not exists:
+        return
 
     req = GetAmountAdsRequest(
         location_id=location_id,
         query=query
     )
+    # TODO: handle errors
     res = private_avito_api_executor_client.stub.get_amount_ads(req)
 
     now = datetime.utcnow()
     uts_now = get_uts_from_datatime(now)
-    with db.session() as session:
-        ads_observer_stat = AdsObserverStat(
-            ads_observer_id=ads_observer_id,
-            timestamp=uts_now,
-            amount=res.amount
-        )
-        session.add(ads_observer_stat)
-        session.commit()
+    new_ads_observer_stat = AdsObserverStatCreate(
+        ads_observer_id=ads_observer_id,
+        timestamp=uts_now,
+        amount=res.amount
+    )
+    async_to_sync(ads_observers_stats_repository.add_one)(new_ads_observer_stat)
 
     in_hour = now + timedelta(minutes=1)
     save_curr_ads_amount.apply_async(

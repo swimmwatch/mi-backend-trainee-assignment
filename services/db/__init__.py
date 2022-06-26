@@ -8,6 +8,7 @@ from loguru import logger
 from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
+from sqlalchemy.pool import NullPool
 
 from utils.sqlalchemy.protocols import SQLAlchemyDatabaseProtocol
 
@@ -19,7 +20,11 @@ class AsyncDatabase(SQLAlchemyDatabaseProtocol):
         """
         :param db_url: Database URL.
         """
-        self._engine = create_async_engine(db_url, echo=True)
+        self._engine = create_async_engine(
+            db_url,
+            echo=True,
+            poolclass=NullPool
+        )
         self._session_factory = sessionmaker(
             self._engine,
             expire_on_commit=False,

@@ -5,8 +5,9 @@ from dependency_injector.containers import DeclarativeContainer
 from dependency_injector.wiring import providers
 from redis.client import Redis
 
-from services.db import Database
-from services.db.config import sync_database_settings
+from services.amount_ads_observer.dal import AdsObserversRepository, AdsObserversStatRepository
+from services.db import AsyncDatabase
+from services.db.config import async_database_settings
 from services.private_avito_api_executor.grpc_client import PrivateAvitoApiExecutorGrpcClient
 from services.redis.config import REDIS_HOST, REDIS_PORT
 from services.worker.config import worker_settings
@@ -24,4 +25,12 @@ class WorkerContainer(DeclarativeContainer):
         worker_settings.private_avito_api_executor_grpc_server_addr
     )
 
-    db = providers.Singleton(Database, db_url=sync_database_settings.db_url)
+    db = providers.Singleton(AsyncDatabase, db_url=async_database_settings.db_url)
+    ads_observers_repository = providers.Factory(
+        AdsObserversRepository,
+        session_factory=db.provided.session
+    )
+    ads_observers_stats_repository = providers.Factory(
+        AdsObserversStatRepository,
+        session_factory=db.provided.session
+    )
