@@ -7,6 +7,7 @@ from pydantic import BaseModel
 class BaseAdsObserverStat(BaseModel):
     amount: int
     timestamp: str
+    ads_observer_id: int
 
 
 class AdsObserverStatCreate(BaseAdsObserverStat):
