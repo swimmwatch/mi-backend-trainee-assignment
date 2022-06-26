@@ -2,7 +2,7 @@
 Announcement observer Data Access Layer.
 """
 from http import HTTPStatus
-from typing import List
+from typing import List, Optional
 
 from fastapi import HTTPException
 from sqlalchemy import select
@@ -24,6 +24,12 @@ class AdsObserversRepository(SQLAlchemyRepository):
                 session.add(ad_observer)
                 await session.commit()
                 return ad_observer
+
+    async def get_by_id(self, ads_observer_id: int) -> Optional[AdsObserver]:
+        async with self.session_factory() as session:
+            stmt = select(AdsObserver).filter_by(id=ads_observer_id)
+            res = await session.execute(stmt)
+            return res.first()
 
 
 class AdsObserversStatRepository(SQLAlchemyRepository):
