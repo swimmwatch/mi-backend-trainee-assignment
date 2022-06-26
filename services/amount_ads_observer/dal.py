@@ -9,6 +9,7 @@ from sqlalchemy import select
 
 from services.amount_ads_observer.models import AdsObserver, AdsObserverStat
 from services.amount_ads_observer.schemas.ads_observer import AdsObserverCreate
+from services.amount_ads_observer.schemas.ads_observer_stat import AdsObserverStatCreate
 from utils.sqlalchemy.dal import SQLAlchemyRepository
 
 
@@ -29,6 +30,14 @@ class AdsObserversStatRepository(SQLAlchemyRepository):
     """
     Advert observers statistic repository that uses SQLAlchemy.
     """
+    async def add_one(self, ads_observer_data: AdsObserverStatCreate) -> AdsObserverStat:
+        async with self.session_factory() as session:
+            async with session.begin():
+                ad_observer_stat = AdsObserverStat(**ads_observer_data.dict())
+                session.add(ad_observer_stat)
+                await session.commit()
+                return ad_observer_stat
+
     async def select_interval(self, ads_observer_id: int, from_: int, to: int) -> List[AdsObserverStat]:
         """
         Returns Advert observers statistic records from timestamp interval.
