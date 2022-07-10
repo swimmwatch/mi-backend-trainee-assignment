@@ -4,9 +4,9 @@ Playwright request utils.
 from typing import Type, TypeVar
 
 from playwright.async_api import Page
-from pydantic import BaseModel, BaseSettings
+from pydantic import BaseModel
 
-T = TypeVar('T', BaseModel, BaseSettings)
+T = TypeVar('T', bound=BaseModel)
 
 
 async def make_async_get_request(page: Page, url: str, schema_type: Type[T]) -> T:
