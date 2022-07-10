@@ -24,9 +24,7 @@ class AsyncPrivateAvitoApiExecutorService(
         self.browser: Optional[Browser] = None
         self.page: Optional[Page] = None
 
-    async def get_amount_ads(
-            self, request: GetAmountAdsRequest, context
-    ) -> GetAmountAdsResponse:
+    async def get_amount_ads(self, request, context):
         req = AvitoItemsRequest(
             key=private_avito_api_executor_settings.avito_magic_key,
             locationId=request.location_id,
