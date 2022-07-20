@@ -23,7 +23,7 @@ psycopg2-binary = "^2.9.3"
 asgiref = "^3.5.2"
 
 [tool.poetry.dev-dependencies]
-mypy = "^0.961"
+mypy = "^0.971"
 pytest = "^7.1.2"
 flake8 = "^4.0.1"
 pytest-cov = "^3.0.0"
