@@ -17,7 +17,7 @@ class AdsObserver(Base):
 class AdsObserverStat(Base):
     __tablename__ = 'ads_observer_stats'
 
-    id = Column(Integer, primary_key=True)
-    ads_observer_id = Column(Integer, ForeignKey('ads_observers.id'), nullable=False)
-    timestamp = Column(Integer, nullable=False)
-    amount = Column(Integer, nullable=False)
+    id: int = Column(Integer, primary_key=True)
+    ads_observer_id: int = Column(Integer, ForeignKey('ads_observers.id'), nullable=False)
+    timestamp: int = Column(Integer, nullable=False)
+    amount: int = Column(Integer, nullable=False)
