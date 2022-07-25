@@ -2,7 +2,7 @@ import calendar
 from datetime import datetime
 
 
-def get_uts_from_datatime(dt: datetime) -> int:
+def get_uts_from_datetime(dt: datetime) -> int:
     """
     Convert datetime object into unix timestamp.
 

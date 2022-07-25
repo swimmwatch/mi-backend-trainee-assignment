@@ -10,7 +10,7 @@ from services.private_avito_api_executor.private_avito_api_executor_pb2 import G
 from services.private_avito_api_executor.grpc.client import PrivateAvitoApiExecutorGrpcClient
 from services.worker.config import worker_settings
 from services.worker.container import WorkerContainer
-from utils.datetime import get_uts_from_datatime
+from utils.datetime import get_uts_from_datetime
 
 celery = Celery(
     'tasks',
@@ -49,7 +49,7 @@ def save_curr_ads_amount(
     res = private_avito_api_executor_client.stub.get_amount_ads(req)
 
     now = datetime.utcnow()
-    uts_now = get_uts_from_datatime(now)
+    uts_now = get_uts_from_datetime(now)
     new_ads_observer_stat = AdsObserverStatCreate(
         ads_observer_id=ads_observer_id,
         timestamp=uts_now,
