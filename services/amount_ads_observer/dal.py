@@ -29,7 +29,7 @@ class AdsObserversRepository(SQLAlchemyRepository):
         async with self.session_factory() as session:
             stmt = select(AdsObserver).filter_by(id=ads_observer_id)
             res = await session.execute(stmt)
-            return res.first()
+            return res.scalar_one_or_none()
 
 
 class AdsObserversStatRepository(SQLAlchemyRepository):

@@ -7,8 +7,7 @@ import urllib
 from playwright.async_api import Playwright, Browser, Page
 
 from services.private_avito_api_executor.config import private_avito_api_executor_settings
-from services.private_avito_api_executor.private_avito_api_executor_pb2 import GetAmountAdsResponse, \
-    GetAmountAdsRequest
+from services.private_avito_api_executor.private_avito_api_executor_pb2 import GetAmountAdsResponse
 from services.private_avito_api_executor.private_avito_api_executor_pb2_grpc import PrivateAvitoApiExecutorServicer
 from services.private_avito_api_executor.schemas.items import AvitoItemsResponse, AvitoItemsRequest
 from utils.playwright.request import make_async_get_request

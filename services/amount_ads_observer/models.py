@@ -9,9 +9,9 @@ from services.db import Base
 class AdsObserver(Base):
     __tablename__ = 'ads_observers'
 
-    id = Column(Integer, primary_key=True)
-    location_id = Column(Integer, nullable=False)
-    query = Column(String, nullable=False)
+    id: int = Column(Integer, primary_key=True)
+    location_id: int = Column(Integer, nullable=False)
+    query: str = Column(String, nullable=False)
 
 
 class AdsObserverStat(Base):

@@ -1,13 +1,11 @@
 """
 Database service.
 """
-from contextlib import asynccontextmanager, contextmanager, AbstractContextManager
-from typing import Callable
+from contextlib import asynccontextmanager
 
 from loguru import logger
-from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import declarative_base, sessionmaker, Session
+from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.pool import NullPool
 
 from utils.sqlalchemy.protocols import SQLAlchemyDatabaseProtocol
@@ -52,32 +50,32 @@ class AsyncDatabase(SQLAlchemyDatabaseProtocol):
 
 
 # TODO: make implementation through protocol
-class Database:
-    def __init__(self, db_url: str) -> None:
-        """
-        :param db_url: Database URL.
-        """
-        self._engine = create_engine(db_url, echo=True)
-        self._session_factory = sessionmaker(
-            self._engine,
-            expire_on_commit=False,
-            class_=Session
-        )
-
-    @contextmanager
-    def session(self) -> Callable[..., AbstractContextManager[Session]]:
-        session: Session = self._session_factory()
-        try:
-            yield session
-        except Exception:
-            logger.exception("Session rollback because of exception")
-            session.rollback()
-            raise
-        finally:
-            session.close()
-
-    def init(self):
-        """
-        Database initialization.
-        """
-        Base.metadata.create_all(self._engine)
+# class Database:
+#     def __init__(self, db_url: str) -> None:
+#         """
+#         :param db_url: Database URL.
+#         """
+#         self._engine = create_engine(db_url, echo=True)
+#         self._session_factory = sessionmaker(
+#             self._engine,
+#             expire_on_commit=False,
+#             class_=Session
+#         )
+#
+#     @contextmanager
+#     def session(self) -> Callable[..., AbstractContextManager[Session]]:
+#         session: Session = self._session_factory()
+#         try:
+#             yield session
+#         except Exception:
+#             logger.exception("Session rollback because of exception")
+#             session.rollback()
+#             raise
+#         finally:
+#             session.close()
+#
+#     def init(self):
+#         """
+#         Database initialization.
+#         """
+#         Base.metadata.create_all(self._engine)
