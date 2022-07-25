@@ -2,8 +2,12 @@ name: "Run Python linters and tests"
 on:
   pull_request:
     branches:
-      - main
+      - master
       - dev
+    paths:
+      - '**/*.py'
+      - 'poetry.lock'
+      - 'pyproject.toml'
 
 jobs:
   lint:
@@ -12,16 +16,16 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
-        poetry-version: ["1.1.13"]
+        poetry-version: ["1.1.14"]
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: "Setup Python ${{matrix.python-version}}"
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{matrix.python-version}}
       - name: "Setup Poetry"
-        uses: abatilo/actions-poetry@v2.1.4
+        uses: abatilo/actions-poetry@v2.1.5
         with:
           poetry-version: ${{matrix.poetry-version}}
       - name: Install dependencies
@@ -36,19 +40,40 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
-        poetry-version: ["1.1.13"]
+        poetry-version: ["1.1.14"]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup Python ${{matrix.python-versions}}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{matrix.python-version}}
       - name: Add poetry
-        uses: abatilo/actions-poetry@v2.1.4
+        uses: abatilo/actions-poetry@v2.1.5
         with:
           poetry-version: ${{matrix.poetry-version}}
       - name: Install dependencies
         run: poetry install
       - name: Run pytest
         run: poetry run pytest
+  coverage:
+    name: "Check coverage"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        poetry-version: ["1.1.14"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Python ${{matrix.python-versions}}
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Add poetry
+        uses: abatilo/actions-poetry@v2.1.5
+        with:
+          poetry-version: ${{matrix.poetry-version}}
+      - name: Install dependencies
+        run: poetry install
+      - name: Run pytest-cov
+        run: poetry run pytest --cov --cov-fail-under=70
