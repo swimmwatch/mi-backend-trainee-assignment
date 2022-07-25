@@ -210,7 +210,7 @@ python-versions = "*"
 click = ">=4.0"
 
 [package.extras]
-dev = ["pytest (>=3.6)", "pytest-cov", "wheel", "coveralls"]
+dev = ["coveralls", "wheel", "pytest-cov", "pytest (>=3.6)"]
 
 [[package]]
 name = "click-repl"
@@ -379,10 +379,10 @@ six = ">=1.9"
 webencodings = "*"
 
 [package.extras]
-all = ["genshi", "chardet (>=2.2)", "lxml"]
-chardet = ["chardet (>=2.2)"]
-genshi = ["genshi"]
 lxml = ["lxml"]
+genshi = ["genshi"]
+chardet = ["chardet (>=2.2)"]
+all = ["lxml", "chardet (>=2.2)", "genshi"]
 
 [[package]]
 name = "idna"
@@ -441,7 +441,7 @@ colorama = {version = ">=0.3.4", markers = "sys_platform == \"win32\""}
 win32-setctime = {version = ">=1.0.0", markers = "sys_platform == \"win32\""}
 
 [package.extras]
-dev = ["colorama (>=0.3.4)", "docutils (==0.16)", "flake8 (>=3.7.7)", "tox (>=3.9.0)", "pytest (>=4.6.2)", "pytest-cov (>=2.7.1)", "black (>=19.10b0)", "isort (>=5.1.1)", "Sphinx (>=4.1.1)", "sphinx-autobuild (>=0.7.1)", "sphinx-rtd-theme (>=0.4.3)"]
+dev = ["sphinx-rtd-theme (>=0.4.3)", "sphinx-autobuild (>=0.7.1)", "Sphinx (>=4.1.1)", "isort (>=5.1.1)", "black (>=19.10b0)", "pytest-cov (>=2.7.1)", "pytest (>=4.6.2)", "tox (>=3.9.0)", "flake8 (>=3.7.7)", "docutils (==0.16)", "colorama (>=0.3.4)"]
 
 [[package]]
 name = "mccabe"
@@ -511,8 +511,8 @@ optional = false
 python-versions = ">=3.6"
 
 [package.extras]
-dev = ["pre-commit", "tox"]
-testing = ["pytest", "pytest-benchmark"]
+testing = ["pytest-benchmark", "pytest"]
+dev = ["tox", "pre-commit"]
 
 [[package]]
 name = "prompt-toolkit"
@@ -633,7 +633,7 @@ coverage = {version = ">=5.2.1", extras = ["toml"]}
 pytest = ">=4.6"
 
 [package.extras]
-testing = ["fields", "hunter", "process-tests", "six", "pytest-xdist", "virtualenv"]
+testing = ["virtualenv", "pytest-xdist", "six", "process-tests", "hunter", "fields"]
 
 [[package]]
 name = "pytz"
@@ -762,7 +762,7 @@ python-versions = "*"
 
 [[package]]
 name = "types-redis"
-version = "4.3.10"
+version = "4.3.11"
 description = "Typing stubs for redis"
 category = "dev"
 optional = false
@@ -832,7 +832,7 @@ optional = false
 python-versions = ">=3.5"
 
 [package.extras]
-dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
+dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 
 [[package]]
 name = "wrapt"
@@ -845,7 +845,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3b7230baeb554bee232d885a19560b78e4ced41765c993d592e20c040e86ff35"
+content-hash = "84f6a92156a8295cddf09a5d9086829fb19737f57de935c1448ec4a2d2fd623b"
 
 [metadata.files]
 amqp = [
@@ -1491,8 +1491,8 @@ types-protobuf = [
     {file = "types_protobuf-3.19.22-py3-none-any.whl", hash = "sha256:d291388678af91bb045fafa864f142dc4ac22f5d4cdca097c7d8d8a32fa9b3ab"},
 ]
 types-redis = [
-    {file = "types-redis-4.3.10.tar.gz", hash = "sha256:3bac2a7ffb62c1623c7d1bf9642eafd4f13792895739c666f1e4ac218ad77789"},
-    {file = "types_redis-4.3.10-py3-none-any.whl", hash = "sha256:0f4497cb918346b0872ac38aa56a96ca1b0c5769fce9f5d654b21ce143c0d92b"},
+    {file = "types-redis-4.3.11.tar.gz", hash = "sha256:83e5633f216c729fb39c5d3f71dd3b0080c651f75b5d4128733878512409c744"},
+    {file = "types_redis-4.3.11-py3-none-any.whl", hash = "sha256:ba4612407a758353aa4fe5e1e4b804126e1160dbd6797840223958b1b5dda34d"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
